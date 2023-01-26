@@ -8,4 +8,5 @@ public class OrderCreationRequest {
     private String size;
     private int count;
     private Long itemId;
+    private String phoneNumber;
 }

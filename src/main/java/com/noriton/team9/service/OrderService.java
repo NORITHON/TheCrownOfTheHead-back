@@ -23,13 +23,13 @@ public class OrderService {
      * 주문 생성
      * */
     @Transactional
-    public Orders saveOrder(String address, String size, int count, Long itemId){
+    public Orders saveOrder(String address, String size, int count, String phoneNumber, Long itemId){
         // 엔티티 조회
         Optional<Item> optionalItem = itemRepository.findById(itemId);
         // Todo : itemId를 pk로 가지는 item이 없는 경우 exception터트리기
         Item item = optionalItem.get();
 
-        Orders order = Orders.createOrder(count, address, size, item);
+        Orders order = Orders.createOrder(count, address, size, phoneNumber, item);
         return orderRepository.save(order);
     }
 
