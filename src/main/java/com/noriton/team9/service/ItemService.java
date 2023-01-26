@@ -69,6 +69,7 @@ public class ItemService {
         Item item = getItem.get();
         item.setName(request.getName());
         item.setPrice(request.getPrice());
+        item.setStockQuantity(request.getStockQuantity());
         Optional<Sample> getSample = sampleRepository.findById(request.getSampleId());
         if(getSample.isPresent()){
             item.setSample(getSample.get());
