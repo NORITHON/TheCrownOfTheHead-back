@@ -7,6 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,5 +35,13 @@ public class SampleService {
         Sample sampleToCreate = new Sample();
         BeanUtils.copyProperties(sample, sampleToCreate);
         return sampleRepository.save(sampleToCreate);
+    }
+
+    /**
+     * 샘플 삭제 -> 디자이너가 샘플 등록 취소
+     * */
+    @Transactional
+    public void deleteSample(Long sampleId){
+        sampleRepository.deleteById(sampleId);
     }
 }

@@ -33,12 +33,15 @@ public class Orders {
 
     private int totalPrice;
 
+    private String phoneNumber;
+
     //==생성 메서드==//
-    public static Orders createOrder(int count, String address, String size, Item item){
+    public static Orders createOrder(int count, String address, String size, String phoneNumber, Item item){
         Orders order = new Orders();
         order.setCount(count);
         order.setAddress(address);
         order.setSize(size);
+        order.setPhoneNumber(phoneNumber);
         order.setItem(item);
         order.setOrderDate(LocalDateTime.now());
         order.setTotalPrice(count * item.getPrice());
