@@ -23,40 +23,46 @@ public class ItemService {
     public final ItemRepository itemRepository;
     public final SampleRepository sampleRepository;
 
-    public List<Item> readItems(){
+    public List<Item> readItems() {
         return itemRepository.findAll();
     }
 
-    public Item readItem(Long itemId){
+    public Item readItem(Long itemId) {
         Optional<Item> item = itemRepository.findById(itemId);
-        if(item.isPresent()){
+        if (item.isPresent()) {
             return item.get();
         }
 
         throw new EntityNotFoundException("Can't find any item under given ID");
     }
 
-    public Item createItem(ItemCreationRequest item){
+    public Item createItem(ItemCreationRequest item) {
+        Optional<Sample> sample = sampleRepository.findById(item.getSampleId());
+        if (!sample.isPresent()) {
+            throw new EntityNotFoundException("Sample Not Found");
+        }
+
         Item itemToCreate = new Item();
         BeanUtils.copyProperties(item, itemToCreate);
+        itemToCreate.setSample(sample.get());
         return itemRepository.save(itemToCreate);
     }
 
     /**
      * 아이템 삭제 -> 관리자가 상품 등록 취소
-     * */
+     */
     @Transactional
-    public void deleteItem(Long itemId){
+    public void deleteItem(Long itemId) {
         itemRepository.deleteById(itemId);
     }
 
     /**
      * 아이템 수정 -> 관리자가 상품 수정
-     * */
+     */
     @Transactional
-    public Item updateItem(Long itemId, ItemCreationRequest request){
+    public Item updateItem(Long itemId, ItemCreationRequest request) {
         Optional<Item> getItem = itemRepository.findById(itemId);
-        if(!getItem.isPresent()){
+        if (!getItem.isPresent()) {
             throw new EntityNotFoundException("Item is not present in the database");
         }
 
@@ -64,10 +70,9 @@ public class ItemService {
         item.setName(request.getName());
         item.setPrice(request.getPrice());
         Optional<Sample> getSample = sampleRepository.findById(request.getSampleId());
-        if(getSample.isPresent()){
+        if (getSample.isPresent()) {
             item.setSample(getSample.get());
-        }
-        else{
+        } else {
             throw new EntityNotFoundException("Sample is not found in the database");
         }
         return itemRepository.save(item);

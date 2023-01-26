@@ -1,6 +1,7 @@
 package com.noriton.team9.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,4 +20,9 @@ public class Sample {
     private String title;
     private String imageUrl;
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "designer_id")
+    @JsonManagedReference
+    private Designer designer;
 }
