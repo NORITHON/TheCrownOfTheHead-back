@@ -7,14 +7,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "item")
 public class Item {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "item_id")
     private Long id;
+
     private String name;
+
     private int price;
 
     @OneToOne(fetch = FetchType.LAZY)

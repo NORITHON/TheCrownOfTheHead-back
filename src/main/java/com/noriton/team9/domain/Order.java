@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id @GeneratedValue
@@ -23,7 +23,7 @@ public class Order {
 
     private String size;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "item_id")
     private Item item;
     private LocalDateTime orderDate;
@@ -31,16 +31,16 @@ public class Order {
     private int totalPrice;
 
     //==생성 메서드==//
-    public static Order createOrder(int count, String address, String size, Item item){
-        Order order = new Order();
-        order.setCount(count);
-        order.setAddress(address);
-        order.setSize(size);
-        order.setItem(item);
-        order.setOrderDate(LocalDateTime.now());
-        order.setTotalPrice(count * item.getPrice());
-        return order;
-    }
+//    public static Order createOrder(int count, String address, String size, Item item){
+//        Order order = new Order();
+//        order.setCount(count);
+//        order.setAddress(address);
+//        order.setSize(size);
+//        order.setItem(item);
+//        order.setOrderDate(LocalDateTime.now());
+//        order.setTotalPrice(count * item.getPrice());
+//        return order;
+//    }
 
 
 }
