@@ -23,6 +23,7 @@ public class SampleService {
 
     public Sample readSample(Long sampleId){
         Optional<Sample> sample = sampleRepository.findById(sampleId);
+        System.out.println("111");
         if(sample.isPresent()) {
             return sample.get();
         }
