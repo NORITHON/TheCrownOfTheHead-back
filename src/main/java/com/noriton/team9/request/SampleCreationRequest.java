@@ -7,4 +7,5 @@ public class SampleCreationRequest {
     private String title;
     private String imageUrl;
     private String content;
+    private Long designerId;
 }

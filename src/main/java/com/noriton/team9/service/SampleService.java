@@ -1,6 +1,8 @@
 package com.noriton.team9.service;
 
+import com.noriton.team9.domain.Designer;
 import com.noriton.team9.domain.Sample;
+import com.noriton.team9.repository.DesignerRepository;
 import com.noriton.team9.repository.SampleRepository;
 import com.noriton.team9.request.SampleCreationRequest;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SampleService {
     public final SampleRepository sampleRepository;
+    public final DesignerRepository designerRepository;
 
     public List<Sample> readSamples(){
         return sampleRepository.findAll();
@@ -31,8 +34,15 @@ public class SampleService {
     }
 
     public Sample createSample(SampleCreationRequest sample){
+        Optional<Designer> designer = designerRepository.findById(sample.getDesignerId());
+        System.out.println(sample.getDesignerId());
+        if(!designer.isPresent()){
+            throw new EntityNotFoundException("Designer not found");
+        }
+
         Sample sampleToCreate = new Sample();
         BeanUtils.copyProperties(sample, sampleToCreate);
+        sampleToCreate.settingDesigner(designer.get());
         return sampleRepository.save(sampleToCreate);
     }
 
