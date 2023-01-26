@@ -28,7 +28,7 @@ public class OrderController {
      * 주문 전체 조회
      * */
     @GetMapping("/order")
-    public ResponseEntity readMembers(){
+    public ResponseEntity readOrders(){
         return ResponseEntity.ok(orderService.findOrders());
     }
 
