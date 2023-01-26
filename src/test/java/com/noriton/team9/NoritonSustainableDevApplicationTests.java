@@ -1,10 +1,10 @@
-package com.example.testFroAWS;
+package com.noriton.team9;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TestFroAwsApplicationTests {
+class NoritonSustainableDevApplicationTests {
 
 	@Test
 	void contextLoads() {
