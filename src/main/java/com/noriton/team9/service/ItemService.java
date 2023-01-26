@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,5 +35,13 @@ public class ItemService {
         Item itemToCreate = new Item();
         BeanUtils.copyProperties(item, itemToCreate);
         return itemRepository.save(itemToCreate);
+    }
+
+    /**
+     * 아이템 삭제 -> 관리자가 상품 등록 취소
+     * */
+    @Transactional
+    public void deleteItem(Long itemId){
+        itemRepository.deleteById(itemId);
     }
 }
