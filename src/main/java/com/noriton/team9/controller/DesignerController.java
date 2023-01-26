@@ -14,6 +14,11 @@ public class DesignerController {
 
     private final DesignerService designerService;
 
+    @GetMapping("/designer")
+    public ResponseEntity readDesigners(){
+        return ResponseEntity.ok(designerService.readDesigners());
+    }
+
     @GetMapping("/designer/{designerId}")
     public ResponseEntity readDesigner(@PathVariable Long designerId){
         return ResponseEntity.ok(designerService.readDesigner(designerId));
