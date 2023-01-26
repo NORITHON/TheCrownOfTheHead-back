@@ -39,8 +39,10 @@ public class Orders {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    private String fundStatus;
+
     //==생성 메서드==//
-    public static Orders createOrder(int count, String address, String size, String phoneNumber, Member member, Item item){
+    public static Orders createOrder(int count, String address, String size, String phoneNumber, Member member, Item item, String fundStatus){
         Orders order = new Orders();
         order.setCount(count);
         order.setAddress(address);
@@ -48,6 +50,7 @@ public class Orders {
         order.setPhoneNumber(phoneNumber);
         order.setMember(member);
         order.setItem(item);
+        order.setFundStatus(fundStatus);
         order.setOrderDate(LocalDateTime.now());
         order.setTotalPrice(count * item.getPrice());
         return order;

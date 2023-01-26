@@ -17,25 +17,34 @@ public class OrderController {
     private final OrderService orderService;
 
     /**
-     * 주문생성
+     * 펀딩참여
      * */
-    @PostMapping("/order")
+    @PostMapping("/fund")
     public ResponseEntity<Orders> createOrder(@RequestBody OrderCreationRequest request){
         return ResponseEntity.ok(orderService.saveOrder(request.getAddress(), request.getSize(), request.getCount(), request.getPhoneNumber(), request.getMemberId(), request.getItemId()));
     }
 
     /**
-     * 주문 전체 조회
+     * 펀딩 전체 조회
      * */
-    @GetMapping("/order")
+    @GetMapping("/fund")
     public ResponseEntity readOrders(){
         return ResponseEntity.ok(orderService.findOrders());
     }
 
     /**
-     * 주문 삭제 -> 주문 상품에 대해 발송처리 된 경우
+     * 상품별 펀딩 조회
      * */
-    @DeleteMapping("/order/{orderId}")
+    @GetMapping("/fund/{itemId}")
+    public ResponseEntity readOrdersByItem(@PathVariable Long itemId){
+        return ResponseEntity.ok(orderService.findOrdersByItem(itemId));
+    }
+
+
+    /**
+     * 펀딩 취소 -> 주문 상품에 대해 발송처리 된 경우
+     * */
+    @DeleteMapping("/fund/{orderId}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long orderId){
         orderService.deleteOrder(orderId);
         return ResponseEntity.ok().build();

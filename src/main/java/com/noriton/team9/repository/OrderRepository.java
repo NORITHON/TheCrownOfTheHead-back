@@ -14,7 +14,7 @@ public class OrderRepository {
     private final EntityManager em;
 
     /**
-     * 주문 생성
+     * 펀딩 생성
      * */
     public Orders save(Orders order){
         em.persist(order);
@@ -22,19 +22,38 @@ public class OrderRepository {
     }
 
     /**
-     * 주문 전체 조회
+     * 펀딩 전체 조회
      * */
     public List<Orders> findAll(){
-        return em.createQuery("select o from Orders o", Orders.class)
+        return em.createQuery("select o from Orders o where o.fundStatus = :fundStatus", Orders.class)
+                .setParameter("fundStatus", "WAITING")
                 .getResultList();
     }
 
     /**
-     * 주문 삭제 -> 상품 발송을 완료한 경우
+     * 펀딩 취소
      * */
     public void delete(Long orderId){
         Orders getOrder = em.find(Orders.class, orderId);
         em.remove(getOrder);
     }
 
+    /**
+     * 펀딩 조회 - 상품별
+     * */
+    public List<Orders> findByItem(Long itemId) {
+        return em.createQuery("select o from Orders o where o.item.id = :itemId and o.fundStatus = :fundStatus")
+                .setParameter("id", itemId)
+                .setParameter("fundStatus", "WAITING")
+                .getResultList();
+    }
+
+    /**
+     * 조회 by id
+     * */
+    public List<Orders> findById(Long memberId){
+        return em.createQuery("select o from Orders o where o.id = :id")
+                .setParameter("id", memberId)
+                .getResultList();
+    }
 }
