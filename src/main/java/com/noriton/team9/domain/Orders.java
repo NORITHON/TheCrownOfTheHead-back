@@ -1,19 +1,20 @@
 package com.noriton.team9.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Order {
+@Getter
+@Setter
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "orders")
+public class Orders {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private Long id;
 
@@ -31,8 +32,8 @@ public class Order {
     private int totalPrice;
 
     //==생성 메서드==//
-    public static Order createOrder(int count, String address, String size, Item item){
-        Order order = new Order();
+    public static Orders createOrder(int count, String address, String size, Item item){
+        Orders order = new Orders();
         order.setCount(count);
         order.setAddress(address);
         order.setSize(size);
