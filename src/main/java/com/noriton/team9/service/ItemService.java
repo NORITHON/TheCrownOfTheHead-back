@@ -1,7 +1,10 @@
 package com.noriton.team9.service;
 
 import com.noriton.team9.domain.Item;
+import com.noriton.team9.domain.Orders;
+import com.noriton.team9.domain.Sample;
 import com.noriton.team9.repository.ItemRepository;
+import com.noriton.team9.repository.SampleRepository;
 import com.noriton.team9.request.ItemCreationRequest;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +21,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ItemService {
     public final ItemRepository itemRepository;
+    public final SampleRepository sampleRepository;
 
     public List<Item> readItems(){
         return itemRepository.findAll();
@@ -43,5 +48,28 @@ public class ItemService {
     @Transactional
     public void deleteItem(Long itemId){
         itemRepository.deleteById(itemId);
+    }
+
+    /**
+     * 아이템 수정 -> 관리자가 상품 수정
+     * */
+    @Transactional
+    public Item updateItem(Long itemId, ItemCreationRequest request){
+        Optional<Item> getItem = itemRepository.findById(itemId);
+        if(!getItem.isPresent()){
+            throw new EntityNotFoundException("Item is not present in the database");
+        }
+
+        Item item = getItem.get();
+        item.setName(request.getName());
+        item.setPrice(request.getPrice());
+        Optional<Sample> getSample = sampleRepository.findById(request.getSampleId());
+        if(getSample.isPresent()){
+            item.setSample(getSample.get());
+        }
+        else{
+            throw new EntityNotFoundException("Sample is not found in the database");
+        }
+        return itemRepository.save(item);
     }
 }
