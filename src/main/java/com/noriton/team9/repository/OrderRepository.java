@@ -29,4 +29,12 @@ public class OrderRepository {
                 .getResultList();
     }
 
+    /**
+     * 주문 삭제 -> 상품 발송을 완료한 경우
+     * */
+    public void delete(Long orderId){
+        Orders getOrder = em.find(Orders.class, orderId);
+        em.remove(getOrder);
+    }
+
 }
