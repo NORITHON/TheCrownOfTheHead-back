@@ -12,7 +12,6 @@ import java.util.List;
 @Entity
 @Table(name = "member")
 @Getter @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id @GeneratedValue

@@ -1,9 +1,7 @@
 package com.noriton.team9.controller;
 
-import com.noriton.team9.request.MemberCreationAndLoginRequest;
-import com.noriton.team9.request.OrderCreationRequest;
+import com.noriton.team9.request.UserCreationAndLoginRequest;
 import com.noriton.team9.service.MemberService;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +18,7 @@ public class MemberController {
      * 로그인
      * */
     @GetMapping("/member/login")
-    public ResponseEntity login(@RequestBody MemberCreationAndLoginRequest request){
+    public ResponseEntity login(@RequestBody UserCreationAndLoginRequest request){
         return ResponseEntity.ok(memberService.login(request.getLoginId(), request.getPassword()));
     }
 
@@ -36,7 +34,7 @@ public class MemberController {
      * 회원가입
      * */
     @PostMapping("/member")
-    public ResponseEntity createMember(@RequestBody MemberCreationAndLoginRequest request){
+    public ResponseEntity createMember(@RequestBody UserCreationAndLoginRequest request){
         return ResponseEntity.ok(memberService.createMember(request.getLoginId(), request.getPassword()));
     }
 

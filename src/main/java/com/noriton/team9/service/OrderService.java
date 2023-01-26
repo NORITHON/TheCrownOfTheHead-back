@@ -23,7 +23,7 @@ public class OrderService {
     private final MemberRepository memberRepository;
 
     /**
-     * 주문 생성
+     * 펀딩 생성
      * */
     @Transactional
     public Orders saveOrder(String address, String size, int count, String phoneNumber, Long memberId, Long itemId){
@@ -32,23 +32,40 @@ public class OrderService {
         Member member = memberRepository.findOne(memberId);
         // Todo : itemId를 pk로 가지는 item이 없는 경우 exception터트리기
         Item item = optionalItem.get();
+        item.removeStockQuantity(count);
 
-        Orders order = Orders.createOrder(count, address, size, phoneNumber, member, item);
+        Orders order = Orders.createOrder(count, address, size, phoneNumber, member, item, "WAITING");
         return orderRepository.save(order);
     }
 
     /**
-     * 주문 전체 조회
+     * 펀딩 전체 조회
      * */
     public List<Orders> findOrders() {
         return orderRepository.findAll();
     }
 
     /**
-     * 주문 삭제 -> 주문상품에 대해 발송처리 한 경우
+     * 펀딩 삭제 -> 마이페이지에서 취소
      * */
     @Transactional
     public void deleteOrder(Long orderId){
+        // 엔티티 조회
+        List<Orders> order = orderRepository.findById(orderId);
+        Item item = order.get(0).getItem();
+        item.addStockQuantity(order.get(0).getCount());
         orderRepository.delete(orderId);
     }
+
+    /**
+     * 펀딩 조회 - 상품별
+     * */
+    public List<Orders> findOrdersByItem(Long itemId) {
+        return orderRepository.findByItem(itemId);
+    }
+
+    /**
+     * 주문 조회 by id
+     * */
+
 }

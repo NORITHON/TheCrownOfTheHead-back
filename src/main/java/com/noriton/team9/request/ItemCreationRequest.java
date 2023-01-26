@@ -7,4 +7,6 @@ public class ItemCreationRequest {
     private String name;
     private int price;
     private Long sampleId;
+
+    private int stockQuantity;
 }
