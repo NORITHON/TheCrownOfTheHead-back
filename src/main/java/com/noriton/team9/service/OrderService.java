@@ -40,4 +40,11 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
+    /**
+     * 주문 삭제 -> 주문상품에 대해 발송처리 한 경우
+     * */
+    @Transactional
+    public void deleteOrder(Long orderId){
+        orderRepository.delete(orderId);
+    }
 }
