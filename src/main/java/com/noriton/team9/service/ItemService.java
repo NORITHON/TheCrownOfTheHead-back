@@ -36,12 +36,11 @@ public class ItemService {
         throw new EntityNotFoundException("Can't find any item under given ID");
     }
 
-    public Item createItem(ItemCreationRequest item){
+    public Item createItem(ItemCreationRequest item) {
         Optional<Sample> sample = sampleRepository.findById(item.getSampleId());
         if (!sample.isPresent()) {
             throw new EntityNotFoundException("Sample Not Found");
         }
-
         Item itemToCreate = new Item();
         BeanUtils.copyProperties(item, itemToCreate);
         itemToCreate.setSample(sample.get());
