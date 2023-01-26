@@ -35,7 +35,7 @@ public class OrderController {
     /**
      * 주문 삭제 -> 주문 상품에 대해 발송처리 된 경우
      * */
-    @DeleteMapping("/order/{id}")
+    @DeleteMapping("/order/{orderId}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long orderId){
         orderService.deleteOrder(orderId);
         return ResponseEntity.ok().build();

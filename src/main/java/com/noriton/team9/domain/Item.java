@@ -17,7 +17,7 @@ public class Item {
     private String name;
     private int price;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "sample_id")
     private Sample sample;
 }
