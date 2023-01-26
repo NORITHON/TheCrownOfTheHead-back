@@ -2,13 +2,11 @@ package com.noriton.team9.service;
 
 import com.noriton.team9.domain.Member;
 import com.noriton.team9.repository.MemberRepository;
-import com.noriton.team9.request.MemberCreationAndLoginRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -46,7 +44,7 @@ public class MemberService {
      * */
     public Member login(String loginId, String password){
         List<Member> getMembers = memberRepository.findByLoginId(loginId);
-        if(getMembers.size() == 0)  throw new IllegalStateException("해당 아이디의 회원이 존재하지 않습니다.");
+        if(getMembers.size() == 0) return new Member();
         int flag = 0;   // 비밀번호가 일치한 member가 없는 경우
         int memberIdx=0;
         for(int i=0; i<getMembers.size(); i++){
@@ -57,7 +55,7 @@ public class MemberService {
             }
         }
 
-        if(flag == 0) throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
+        if(flag == 0) return new Member();
         return getMembers.get(memberIdx);
     }
 
