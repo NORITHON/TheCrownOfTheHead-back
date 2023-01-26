@@ -16,8 +16,9 @@ public class OrderRepository {
     /**
      * 주문 생성
      * */
-    public void save(Orders order){
+    public Orders save(Orders order){
         em.persist(order);
+        return order;
     }
 
     /**
