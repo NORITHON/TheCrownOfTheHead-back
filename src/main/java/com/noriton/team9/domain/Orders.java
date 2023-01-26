@@ -26,7 +26,7 @@ public class Orders {
 
     private String size;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "item_id")
     private Item item;
     private LocalDateTime orderDate;
