@@ -9,4 +9,5 @@ public class OrderCreationRequest {
     private int count;
     private Long itemId;
     private String phoneNumber;
+    private Long memberId;
 }
