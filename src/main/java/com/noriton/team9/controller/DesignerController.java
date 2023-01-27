@@ -15,7 +15,6 @@ public class DesignerController {
 
     private final DesignerService designerService;
 
-
     @PostMapping("/designer/login")
     public ResponseEntity login(@RequestBody UserCreationAndLoginRequest request){
         return ResponseEntity.ok(designerService.login(request.getLoginId(), request.getPassword()));
