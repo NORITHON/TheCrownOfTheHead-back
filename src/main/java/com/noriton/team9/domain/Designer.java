@@ -26,6 +26,6 @@ public class Designer {
 
 
     @OneToMany(mappedBy = "designer")
-    @JsonIgnore(value = false)
+    @JsonBackReference
     private List<Sample> samples = new ArrayList<>();
 }

@@ -17,7 +17,7 @@ public class MemberController {
     /**
      * 로그인
      * */
-    @GetMapping("/member/login")
+    @PostMapping("/member/login")
     public ResponseEntity login(@RequestBody UserCreationAndLoginRequest request){
         return ResponseEntity.ok(memberService.login(request.getLoginId(), request.getPassword()));
     }

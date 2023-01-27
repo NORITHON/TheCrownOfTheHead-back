@@ -32,7 +32,7 @@ public class Sample{
 
     @ManyToOne
     @JoinColumn(name = "designer_id")
-    @JsonIgnore
+    @JsonManagedReference
     private Designer designer;
 
     public void settingDesigner(Designer designer) {
