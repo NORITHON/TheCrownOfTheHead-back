@@ -26,10 +26,10 @@ public class SampleLikeRepository {
     }
 
     public void deleteOne(Long sampleId, Long memberId) {
-        List<SampleLike> result = em.createQuery("delete from SampleLike s where s.sample.id = :sampleId and s.member.id = :memberId")
+        em.createQuery("delete from SampleLike s where s.sample.id = :sampleId and s.member.id = :memberId")
                 .setParameter("sampleId", sampleId)
                 .setParameter("memberId", memberId)
                 .getResultList();
-        em.remove(result.get(0));
+//        em.remove(result.get(0));
     }
 }

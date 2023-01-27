@@ -32,6 +32,11 @@ public class OrderController {
         return ResponseEntity.ok(orderService.approveOrder(request.getItemId()));
     }
 
+    @GetMapping("/order")
+    public ResponseEntity readAllOrders(){
+        return ResponseEntity.ok(orderService.readOrders());
+    }
+
     /**
      * 펀딩 전체 조회
      * */

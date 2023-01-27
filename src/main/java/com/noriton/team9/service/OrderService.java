@@ -22,11 +22,12 @@ public class OrderService {
     private final ItemRepository itemRepository;
     private final MemberRepository memberRepository;
 
+
     /**
      * 펀딩 생성
-     * */
+     */
     @Transactional
-    public Orders saveOrder(String address, String size, int count, String phoneNumber, Long memberId, Long itemId){
+    public Orders saveOrder(String address, String size, int count, String phoneNumber, Long memberId, Long itemId) {
         // 엔티티 조회
         Optional<Item> optionalItem = itemRepository.findById(itemId);
         Member member = memberRepository.findOne(memberId);
@@ -40,16 +41,16 @@ public class OrderService {
 
     /**
      * 펀딩 전체 조회
-     * */
+     */
     public List<Orders> findOrders() {
         return orderRepository.findAll();
     }
 
     /**
      * 펀딩 삭제 -> 마이페이지에서 취소
-     * */
+     */
     @Transactional
-    public void deleteOrder(Long orderId){
+    public void deleteOrder(Long orderId) {
         // 엔티티 조회
         List<Orders> order = orderRepository.findById(orderId);
         Item item = order.get(0).getItem();
@@ -59,7 +60,7 @@ public class OrderService {
 
     /**
      * 펀딩 조회 - 상품별 : 관리자 페이지에서 조회
-     * */
+     */
     public List<Orders> findOrdersByItem(Long itemId) {
         return orderRepository.findByItem(itemId);
     }
@@ -72,14 +73,23 @@ public class OrderService {
 
     /**
      * 주문 승인
-     * */
+     */
     @Transactional
     public Orders approveOrder(Long itemId) {
         Optional<Item> optionalItem = itemRepository.findById(itemId);
         Item item = optionalItem.get();
 
         Orders order = Orders.approveOrder(item, "APPROVED");
+
+        List<Orders> list = item.getFundingList();
+        for (int i = 0; i < list.size(); i++) {
+            orderRepository.save(list.get(i));
+        }
         return orderRepository.save(order);
+    }
+
+    public List<Orders> readOrders() {
+        return orderRepository.findAll();
     }
 
     /**
