@@ -24,6 +24,9 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Orders> ordersList = new ArrayList<>();
 
+//    @ManyToMany(mappedBy = "likedMembers")
+//    private List<Sample> likedSamples = new ArrayList<>();
+
     public static Member createMember(String loginId, String password){
         Member member = new Member();
         member.setLoginId(loginId);

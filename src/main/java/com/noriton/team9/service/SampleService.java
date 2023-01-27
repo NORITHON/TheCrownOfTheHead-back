@@ -1,9 +1,11 @@
 package com.noriton.team9.service;
 
-import com.noriton.team9.domain.Designer;
-import com.noriton.team9.domain.Sample;
+import com.noriton.team9.domain.*;
 import com.noriton.team9.repository.DesignerRepository;
+import com.noriton.team9.repository.MemberRepository;
+import com.noriton.team9.repository.SampleLikeRepository;
 import com.noriton.team9.repository.SampleRepository;
+import com.noriton.team9.request.LikeRequest;
 import com.noriton.team9.request.SampleCreationRequest;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,8 @@ import java.util.Optional;
 public class SampleService {
     public final SampleRepository sampleRepository;
     public final DesignerRepository designerRepository;
+    public final MemberRepository memberRepository;
+    private final SampleLikeRepository sampleLikeRepository;
 
     public List<Sample> readSamples(){
         return sampleRepository.findAll();
@@ -43,6 +47,7 @@ public class SampleService {
         Sample sampleToCreate = new Sample();
         BeanUtils.copyProperties(sample, sampleToCreate);
         sampleToCreate.settingDesigner(designer.get());
+//        sampleToCreate.setLikeCount(0);
         return sampleRepository.save(sampleToCreate);
     }
 
@@ -52,5 +57,46 @@ public class SampleService {
     @Transactional
     public void deleteSample(Long sampleId){
         sampleRepository.deleteById(sampleId);
+    }
+
+    /**
+     * 샘플 좋아요 누르기
+     * */
+    @Transactional
+    public Sample likeSample(LikeRequest request) {
+        Member member = memberRepository.findOne(request.getMemberId());
+        Optional<Sample> getSample = sampleRepository.findById(request.getSampleId());
+        Sample sample = getSample.get();
+
+//        sample.getLikedMembers().add(member);
+//        sample.setLikeCount(sample.getLikeCount() + 1);
+//        member.getLikedSamples().add(sample);
+//        memberRepository.save(member);
+        SampleLike sampleLike = new SampleLike();
+        sampleLike.setMember(member);
+        sampleLike.setSample(sample);
+        sampleLikeRepository.save(sampleLike);
+
+        List<SampleLike>  likeList = sampleLikeRepository.findBySampleId(request.getSampleId());
+        sample.setLikeCount(likeList.size());
+        return sample;
+    }
+
+    public Sample unlikeSample(LikeRequest request) {
+        Optional<Sample> getSample = sampleRepository.findById(request.getSampleId());
+        Sample sample = getSample.get();
+
+        List<SampleLike>  likeList = sampleLikeRepository.findBySampleId(request.getSampleId());
+        sample.setLikeCount(likeList.size());
+
+        sampleLikeRepository.deleteOne(request.getSampleId(), request.getMemberId());
+        sample.setLikeCount(sample.getLikeCount() - 1);
+        return sample;
+    }
+
+    public List<Sample> readSamplesByLike() {
+        List<Sample> list = sampleRepository.findAll();
+//        Collections.sort(list);
+        return list;
     }
 }
