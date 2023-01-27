@@ -5,8 +5,9 @@ import lombok.Data;
 @Data
 public class ItemCreationRequest {
     private String name;
-    private int price;
-    private Long sampleId;
+    private int laborCost;
+    private int materialCost;
 
+    private Long sampleId;
     private int stockQuantity;
 }
