@@ -91,8 +91,11 @@ public class ItemService {
     public List<Item> readWaitingItem(){
         List<Item> result = itemRepository.findAll();
         List<Item> waiting = new ArrayList<>();
-        for(int i=0; i<result.size(); i++){
-            if(result.get(i).getFundingList().get(0).getFundStatus().compareTo("WAITING")==0) waiting.add(result.get(i));
+        for(int i=0; i<result.size(); i++) {
+            if (result.get(i).getFundingList().size() != 0) {
+                if (result.get(i).getFundingList().get(0).getFundStatus().compareTo("WAITING") == 0)
+                    waiting.add(result.get(i));
+            }
         }
         return waiting;
     }
