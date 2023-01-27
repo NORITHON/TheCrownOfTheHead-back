@@ -7,11 +7,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
 @Table(name = "sample")
-public class Sample {
+public class Sample{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +25,10 @@ public class Sample {
     private String imageUrl;
     private String content;
 
+//    @ManyToMany(mappedBy = "likedSamples")
+//    private List<Member> likedMembers = new ArrayList<>();
+
+    private int likeCount;
 
     @ManyToOne
     @JoinColumn(name = "designer_id")
@@ -32,4 +39,14 @@ public class Sample {
         this.designer = designer;
         designer.getSamples().add(this);
     }
+
+//    @Override
+//    public int compareTo(Sample s) {
+//        if (s.likeCount < likeCount) {
+//            return 1;
+//        } else if (s.likeCount > likeCount) {
+//            return -1;
+//        }
+//        return 0;
+//    }
 }

@@ -1,5 +1,6 @@
 package com.noriton.team9.controller;
 
+import com.noriton.team9.request.LikeRequest;
 import com.noriton.team9.request.SampleCreationRequest;
 import com.noriton.team9.service.SampleService;
 import lombok.RequiredArgsConstructor;
@@ -28,4 +29,20 @@ public class SampleController {
     public ResponseEntity createSample(@RequestBody SampleCreationRequest request){
         return ResponseEntity.ok(sampleService.createSample(request));
     }
+
+    @PostMapping("/sample/like")
+    public ResponseEntity likeSample(@RequestBody LikeRequest request){
+        return ResponseEntity.ok(sampleService.likeSample(request));
+    }
+
+    @PostMapping("/sample/unlike")
+    public ResponseEntity unlikeSample(@RequestBody LikeRequest request){
+        return ResponseEntity.ok(sampleService.unlikeSample(request));
+    }
+
+    @GetMapping("/sample/desc")
+    public ResponseEntity readSamplesByLike(){
+        return ResponseEntity.ok(sampleService.readSamplesByLike());
+    }
+
 }
