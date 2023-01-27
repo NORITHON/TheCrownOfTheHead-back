@@ -1,5 +1,6 @@
 package com.noriton.team9.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -30,7 +31,7 @@ public class Item {
     private int count;
 
     @OneToMany(mappedBy = "item")
-    @JsonIgnore(value = false)
+    @JsonBackReference
     private List<Orders> fundingList = new ArrayList<>();
     public void removeStockQuantity(int count) {
         int resStock = this.stockQuantity - count;

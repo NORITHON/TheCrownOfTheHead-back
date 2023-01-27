@@ -1,5 +1,7 @@
 package com.noriton.team9.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,6 +24,7 @@ public class Member {
     private String password;
 
     @OneToMany(mappedBy = "member")
+    @JsonBackReference
     private List<Orders> ordersList = new ArrayList<>();
 
 //    @ManyToMany(mappedBy = "likedMembers")
