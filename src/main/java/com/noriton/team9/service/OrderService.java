@@ -58,10 +58,28 @@ public class OrderService {
     }
 
     /**
-     * 펀딩 조회 - 상품별
+     * 펀딩 조회 - 상품별 : 관리자 페이지에서 조회
      * */
     public List<Orders> findOrdersByItem(Long itemId) {
         return orderRepository.findByItem(itemId);
+    }
+
+    /**
+     * 펀딩 조회 - 멤버별 : 마이페이지에서 내가 펀딩한 상품 보기
+     * */
+//    public List<Orders> findOrdersByMember(Long memberId) { return orderRepository.findByMember(memberId);}
+
+
+    /**
+     * 주문 승인
+     * */
+    @Transactional
+    public Orders approveOrder(Long itemId) {
+        Optional<Item> optionalItem = itemRepository.findById(itemId);
+        Item item = optionalItem.get();
+
+        Orders order = Orders.approveOrder(item, "APPROVED");
+        return orderRepository.save(order);
     }
 
     /**

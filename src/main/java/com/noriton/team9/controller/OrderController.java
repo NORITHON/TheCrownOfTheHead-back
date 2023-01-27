@@ -25,6 +25,14 @@ public class OrderController {
     }
 
     /**
+     * 주문 승인
+     * */
+    @PostMapping("/order")
+    public ResponseEntity<Orders> approveOrder(@RequestBody OrderCreationRequest request){
+        return ResponseEntity.ok(orderService.approveOrder(request.getItemId()));
+    }
+
+    /**
      * 펀딩 전체 조회
      * */
     @GetMapping("/fund")
