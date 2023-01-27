@@ -9,5 +9,4 @@ import java.util.List;
 public class DesignerCreationRequest {
     private String loginId;
     private String password;
-    private List<Sample> sampleList;
 }
