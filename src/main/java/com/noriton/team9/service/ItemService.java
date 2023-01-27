@@ -13,7 +13,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,4 +88,27 @@ public class ItemService {
         return itemRepository.save(item);
     }
 
+    public List<Item> readWaitingItem(){
+        List<Item> result = itemRepository.findAll();
+        List<Item> waiting = new ArrayList<>();
+        for(int i=0; i<result.size(); i++){
+            if(result.get(i).getFundingList().get(0).getFundStatus().compareTo("WAITING")==0) waiting.add(result.get(i));
+        }
+        return waiting;
+    }
+
+    public List<Item> readWaitingItemsByMemberId(Long memberId) {
+        List<Item> waiting = readWaitingItem();
+        List<Item> myWaiting = new ArrayList<>();
+        for(int i=0; i<waiting.size(); i++){
+            List<Orders> fundList = waiting.get(i).getFundingList();
+            for(int j=0; j<fundList.size(); j++){
+                if(fundList.get(j).getMember().getId() == memberId){
+                    myWaiting.add(waiting.get(i));
+                    break;
+                }
+            }
+        }
+        return myWaiting;
+    }
 }

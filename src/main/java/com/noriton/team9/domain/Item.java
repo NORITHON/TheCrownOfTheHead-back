@@ -34,10 +34,10 @@ public class Item {
     @JsonBackReference
     private List<Orders> fundingList = new ArrayList<>();
     public void removeStockQuantity(int count) {
-        int resStock = this.stockQuantity - count;
-        if(resStock < 0){
-            throw new IllegalStateException("펀딩 한계치를 초과했습니다.");
-        }
+//        int resStock = this.stockQuantity - count;
+//        if(resStock < 0){
+//            throw new IllegalStateException("펀딩 한계치를 초과했습니다.");
+//        }
         this.count += count;
         this.stockQuantity -= count;
     }

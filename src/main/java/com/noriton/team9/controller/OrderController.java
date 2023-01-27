@@ -32,18 +32,21 @@ public class OrderController {
         return ResponseEntity.ok(orderService.approveOrder(request.getItemId()));
     }
 
+    /**
+     * 상품(승인, 미승인 상관 없이) 전체 조회
+     * */
     @GetMapping("/order")
     public ResponseEntity readAllOrders(){
-        return ResponseEntity.ok(orderService.readOrders());
-    }
-
-    /**
-     * 펀딩 전체 조회
-     * */
-    @GetMapping("/fund")
-    public ResponseEntity readOrders(){
         return ResponseEntity.ok(orderService.findOrders());
     }
+
+//    /**
+//     * 펀딩 전체 조회
+//     * */
+//    @GetMapping("/fund")
+//    public ResponseEntity readOrders(){
+//        return ResponseEntity.ok(orderService.findOrders());
+//    }
 
     /**
      * 상품별 펀딩 조회
@@ -63,4 +66,20 @@ public class OrderController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * 승인된 상품 memberId로 조회 -> 마이페이지
+     * */
+    @PostMapping("/order/{memberId}")
+    public ResponseEntity readOrdersByMemberId(@PathVariable Long memberId)
+    {
+        return ResponseEntity.ok(orderService.findOrdersByMemberId(memberId));
+    }
+
+    /**
+     * 승인된 상품 전체 조회 -> 관리자 페이지
+     * */
+    @GetMapping("/order/approved")
+    public ResponseEntity readApprovedOrders(){
+        return ResponseEntity.ok(orderService.readApprovedOrders());
+    }
 }

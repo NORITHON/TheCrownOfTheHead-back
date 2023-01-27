@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +41,7 @@ public class OrderService {
     }
 
     /**
-     * 펀딩 전체 조회
+     * order(승인, 미승인) 전체 조회
      */
     public List<Orders> findOrders() {
         return orderRepository.findAll();
@@ -88,12 +89,18 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public List<Orders> readOrders() {
-        return orderRepository.findAll();
+
+    public List<Orders> findOrdersByMemberId(Long memberId) {
+        return orderRepository.findByMemberId(memberId);
     }
 
-    /**
-     * 주문 조회 by id
-     * */
+    public List<Orders> readApprovedOrders() {
+        List<Orders> entire = findOrders();
+        List<Orders> approved = new ArrayList<>();
 
+        for(int i=0; i<entire.size(); i++){
+            if(entire.get(i).getFundStatus().compareTo("APPROVED") == 0) approved.add(entire.get(i));
+        }
+        return approved;
+    }
 }
