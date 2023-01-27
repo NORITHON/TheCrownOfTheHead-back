@@ -27,7 +27,7 @@ public class Orders {
 
     private String size;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
     private LocalDateTime orderDate;
@@ -51,11 +51,16 @@ public class Orders {
         order.setSize(size);
         order.setPhoneNumber(phoneNumber);
         order.setMember(member);
-        order.setItem(item);
+        order.setItemRelation(item);
         order.setFundStatus(fundStatus);
         order.setOrderDate(LocalDateTime.now());
         order.setTotalPrice(count * item.getPrice());
         return order;
+    }
+
+    private void setItemRelation(Item item) {
+        this.item = item;
+        item.getFundingList().add(this);
     }
 
     public static Orders approveOrder(Item item, String fundStatus) {
