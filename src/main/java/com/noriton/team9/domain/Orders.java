@@ -79,14 +79,15 @@ public class Orders {
         }
         order.setCount(totalCount);
         order.setTotalPrice(totalPrice);
-        order.setApprovedItem(item);
+        order.setItem(item);
+        order.setMember(item.getFundingList().get(0).getMember());
         return order;
     }
 
     // approved된 order는 Item의 fundingList에 하위로 들어가지 않는다. 단방향 관계.
-    private void setApprovedItem(Item item) {
-        this.item = item;
-    }
+//    private void setApprovedItem(Item item) {
+//        this.item = item;
+//    }
 
     public void setMember(Member member){
         this.member = member;

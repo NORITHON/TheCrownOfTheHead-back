@@ -79,6 +79,10 @@ public class OrderService {
         Item item = optionalItem.get();
 
         Orders order = Orders.approveOrder(item, "APPROVED");
+        List<Orders> list = item.getFundingList();
+        for(int i=0; i<list.size(); i++){
+            orderRepository.save(list.get(i));
+        }
         return orderRepository.save(order);
     }
 
