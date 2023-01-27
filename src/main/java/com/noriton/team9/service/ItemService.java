@@ -43,7 +43,9 @@ public class ItemService {
         }
         Item itemToCreate = new Item();
         BeanUtils.copyProperties(item, itemToCreate);
-        int totalCost = (item.getLaborCost() + item.getMaterialCost());
+
+        //가격 측정
+        int totalCost = (item.getLaborCost() + item.getMaterialCost() + item.getCirculationCost()) * 2;
         itemToCreate.setPrice(totalCost);
         itemToCreate.setCount(0);
         itemToCreate.setSample(sample.get());
@@ -69,7 +71,9 @@ public class ItemService {
         }
         Item item = getItem.get();
         item.setName(request.getName());
-        int totalPrice = (request.getLaborCost() + request.getMaterialCost());
+
+        //가격 측정
+        int totalPrice = (request.getLaborCost() + request.getMaterialCost() + request.getCirculationCost()) * 2;
         item.setPrice(totalPrice);
         item.setStockQuantity(request.getStockQuantity());
         Optional<Sample> getSample = sampleRepository.findById(request.getSampleId());
