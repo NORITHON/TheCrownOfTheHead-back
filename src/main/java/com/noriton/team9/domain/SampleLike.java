@@ -23,4 +23,7 @@ public class SampleLike {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Enumerated(EnumType.ORDINAL)
+    private LikeStatus status;
+
 }

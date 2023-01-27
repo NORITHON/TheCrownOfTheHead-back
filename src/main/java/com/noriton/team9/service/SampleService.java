@@ -64,24 +64,40 @@ public class SampleService {
      * */
     @Transactional
     public Sample likeSample(LikeRequest request) {
-        Member member = memberRepository.findOne(request.getMemberId());
-        Optional<Sample> getSample = sampleRepository.findById(request.getSampleId());
-        Sample sample = getSample.get();
+        Sample sample;
+        List<SampleLike> sl = sampleLikeRepository.findbySampleAndMember(request.getSampleId(),request.getMemberId());
+        if(sl.size() > 0) {
+            sl.get(0).setStatus(LikeStatus.LIKE);
+            Optional<Sample> getSample = sampleRepository.findById(request.getSampleId());
+            Sample s = getSample.get();
+
+            s.setLikeCount(s.getLikeCount() + 1);
+            sample = s;
+        }
+        else{
+            Member member = memberRepository.findOne(request.getMemberId());
+            Optional<Sample> getSample = sampleRepository.findById(request.getSampleId());
+            Sample s = getSample.get();
 
 //        sample.getLikedMembers().add(member);
 //        sample.setLikeCount(sample.getLikeCount() + 1);
 //        member.getLikedSamples().add(sample);
 //        memberRepository.save(member);
-        SampleLike sampleLike = new SampleLike();
-        sampleLike.setMember(member);
-        sampleLike.setSample(sample);
-        sampleLikeRepository.save(sampleLike);
+            SampleLike sampleLike = new SampleLike();
+            sampleLike.setMember(member);
+            sampleLike.setSample(s);
+            sampleLike.setStatus(LikeStatus.LIKE);
+            sampleLikeRepository.save(sampleLike);
 
-        List<SampleLike>  likeList = sampleLikeRepository.findBySampleId(request.getSampleId());
-        sample.setLikeCount(likeList.size());
+            List<SampleLike>  likeList = sampleLikeRepository.findBySampleId(request.getSampleId());
+            s.setLikeCount(likeList.size());
+            sample = s;
+        }
+
         return sample;
     }
 
+    @Transactional
     public Sample unlikeSample(LikeRequest request) {
         Optional<Sample> getSample = sampleRepository.findById(request.getSampleId());
         Sample sample = getSample.get();
@@ -89,7 +105,10 @@ public class SampleService {
         List<SampleLike>  likeList = sampleLikeRepository.findBySampleId(request.getSampleId());
         sample.setLikeCount(likeList.size());
 
-        sampleLikeRepository.deleteOne(request.getSampleId(), request.getMemberId());
+//        sampleLikeRepository.deleteOne(request.getSampleId(), request.getMemberId());
+        List<SampleLike> sampleLike = sampleLikeRepository.findbySampleAndMember(request.getSampleId(),request.getMemberId());
+        sampleLike.get(0).setStatus(LikeStatus.UNLIKE);
+        sampleLikeRepository.save(sampleLike.get(0));
         sample.setLikeCount(sample.getLikeCount() - 1);
         return sample;
     }
