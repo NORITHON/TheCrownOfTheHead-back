@@ -25,8 +25,7 @@ public class OrderRepository {
      * 펀딩 전체 조회
      * */
     public List<Orders> findAll(){
-        return em.createQuery("select o from Orders o where o.fundStatus = :fundStatus", Orders.class)
-                .setParameter("fundStatus", "WAITING")
+        return em.createQuery("select o from Orders o ", Orders.class)
                 .getResultList();
     }
 
