@@ -77,6 +77,7 @@ public class Orders {
         order.setCount(totalCount);
         order.setTotalPrice(totalPrice);
         order.setApprovedItem(item);
+        return order;
     }
 
     // approved된 order는 Item의 fundingList에 하위로 들어가지 않는다. 단방향 관계.
