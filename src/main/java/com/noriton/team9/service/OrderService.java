@@ -99,7 +99,8 @@ public class OrderService {
         List<Orders> approved = new ArrayList<>();
 
         for(int i=0; i<entire.size(); i++){
-            if(entire.get(i).getFundStatus().compareTo("APPROVED") == 0) approved.add(entire.get(i));
+            Orders order = entire.get(i);
+            if(order.getFundStatus().compareTo("APPROVED") == 0 && order.getAddress() == null) approved.add(entire.get(i));
         }
         return approved;
     }
