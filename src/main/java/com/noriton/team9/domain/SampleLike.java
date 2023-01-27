@@ -1,5 +1,7 @@
 package com.noriton.team9.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -17,10 +19,12 @@ public class SampleLike {
 
     @ManyToOne
     @JoinColumn(name = "sample_id")
+    @JsonManagedReference
     private Sample sample;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
+    @JsonManagedReference
     private Member member;
 
     @Enumerated(EnumType.ORDINAL)

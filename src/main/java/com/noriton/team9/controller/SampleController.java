@@ -15,6 +15,7 @@ public class SampleController {
 
     private final SampleService sampleService;
 
+    // 샘플 part
     @GetMapping("/sample")
     public ResponseEntity readSamples(){
         return ResponseEntity.ok(sampleService.readSamples());
@@ -30,6 +31,9 @@ public class SampleController {
         return ResponseEntity.ok(sampleService.createSample(request));
     }
 
+
+
+    //좋아요 part
     @PostMapping("/sample/like")
     public ResponseEntity likeSample(@RequestBody LikeRequest request){
         return ResponseEntity.ok(sampleService.likeSample(request));
