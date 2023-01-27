@@ -16,12 +16,13 @@ public class Item {
     private Long id;
     private String name;
     private int price;
+    private int stockQuantity;
 
     @OneToOne
     @JoinColumn(name = "sample_id")
     private Sample sample;
 
-    private int stockQuantity;
+
 
     public void removeStockQuantity(int count) {
         int resStock = this.stockQuantity - count;

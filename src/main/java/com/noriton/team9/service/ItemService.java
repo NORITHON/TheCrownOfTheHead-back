@@ -7,6 +7,7 @@ import com.noriton.team9.repository.ItemRepository;
 import com.noriton.team9.repository.SampleRepository;
 import com.noriton.team9.request.ItemCreationRequest;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.criteria.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +23,7 @@ import java.util.Optional;
 public class ItemService {
     public final ItemRepository itemRepository;
     public final SampleRepository sampleRepository;
+
 
     public List<Item> readItems(){
         return itemRepository.findAll();
