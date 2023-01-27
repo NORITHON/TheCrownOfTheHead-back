@@ -40,6 +40,12 @@ public class SampleLikeRepository {
                 .getResultList();
     }
 
+    public List<SampleLike> findByMemberId(Long memberId) {
+        return em.createQuery("select sl from SampleLike  sl where sl.member.id = :memberId")
+                .setParameter("memberId", memberId)
+                .getResultList();
+    }
+
 //    public SampleLike findById(Long sampleId) {
 //        return em.find(SampleLike.class,sampleId);
 //    }
