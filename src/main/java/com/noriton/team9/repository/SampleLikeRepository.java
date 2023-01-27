@@ -32,4 +32,15 @@ public class SampleLikeRepository {
                 .getResultList();
 //        em.remove(result.get(0));
     }
+
+    public List<SampleLike> findbySampleAndMember(Long sampleId, Long memberId){
+        return em.createQuery("select sl from SampleLike sl where sl.member.id = :memberId and sl.sample.id = :sampleId")
+                .setParameter("memberId", memberId)
+                .setParameter("sampleId", sampleId)
+                .getResultList();
+    }
+
+//    public SampleLike findById(Long sampleId) {
+//        return em.find(SampleLike.class,sampleId);
+//    }
 }
