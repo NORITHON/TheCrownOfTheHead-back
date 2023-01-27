@@ -23,15 +23,19 @@ public class Item {
 
     private int stockQuantity;
 
+    private int count;
+
     public void removeStockQuantity(int count) {
         int resStock = this.stockQuantity - count;
         if(resStock < 0){
             throw new IllegalStateException("펀딩 한계치를 초과했습니다.");
         }
+        this.count += count;
         this.stockQuantity -= count;
     }
 
     public void addStockQuantity(int count) {
+        this.count -= count;
         this.stockQuantity += count;
     }
 }

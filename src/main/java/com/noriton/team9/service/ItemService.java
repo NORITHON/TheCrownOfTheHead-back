@@ -43,6 +43,7 @@ public class ItemService {
         }
         Item itemToCreate = new Item();
         BeanUtils.copyProperties(item, itemToCreate);
+        itemToCreate.setCount(0);
         itemToCreate.setSample(sample.get());
         return itemRepository.save(itemToCreate);
     }
