@@ -13,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -117,5 +118,16 @@ public class SampleService {
         List<Sample> list = sampleRepository.findAll();
 //        Collections.sort(list);
         return list;
+    }
+
+    public List<SampleLike> alreadyLiked(Long memberId) {
+        List<SampleLike> likeById = sampleLikeRepository.findByMemberId(memberId);
+        List<SampleLike> noCancel = new ArrayList<>();
+
+        for(int i=0; i<likeById.size(); i++){
+            if(likeById.get(i).getStatus().compareTo(LikeStatus.LIKE) == 0) noCancel.add(likeById.get(i));
+        }
+
+        return noCancel;
     }
 }

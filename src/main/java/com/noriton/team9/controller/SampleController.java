@@ -40,9 +40,17 @@ public class SampleController {
         return ResponseEntity.ok(sampleService.unlikeSample(request));
     }
 
-    @GetMapping("/sample/desc")
-    public ResponseEntity readSamplesByLike(){
-        return ResponseEntity.ok(sampleService.readSamplesByLike());
+//    @GetMapping("/sample/desc")
+//    public ResponseEntity readSamplesByLike(){
+//        return ResponseEntity.ok(sampleService.readSamplesByLike());
+//    }
+
+    /**
+     * 이미 좋아요 누른 샘플 받아오기
+     * */
+    @GetMapping("/sample/alreadyLiked/{memberId}")
+    public ResponseEntity alreadyLiked(@PathVariable Long memberId){
+        return ResponseEntity.ok(sampleService.alreadyLiked(memberId));
     }
 
 }
