@@ -43,6 +43,8 @@ public class ItemService {
         }
         Item itemToCreate = new Item();
         BeanUtils.copyProperties(item, itemToCreate);
+        int totalCost = (item.getLaborCost() + item.getMaterialCost());
+        itemToCreate.setPrice(totalCost);
         itemToCreate.setCount(0);
         itemToCreate.setSample(sample.get());
         return itemRepository.save(itemToCreate);
@@ -65,10 +67,10 @@ public class ItemService {
         if(!getItem.isPresent()){
             throw new EntityNotFoundException("Item is not present in the database");
         }
-
         Item item = getItem.get();
         item.setName(request.getName());
-        item.setPrice(request.getPrice());
+        int totalPrice = (request.getLaborCost() + request.getMaterialCost());
+        item.setPrice(totalPrice);
         item.setStockQuantity(request.getStockQuantity());
         Optional<Sample> getSample = sampleRepository.findById(request.getSampleId());
         if(getSample.isPresent()){
