@@ -1,5 +1,4 @@
-# noriton-back
-noriton-back-springBoot
+# The Crown Of The Head 팀의 Moo:re 서비스 소개
 
 ## 프로젝트 개요
 "최상위 클래스의 디자이너만 살아남는 패션 업계의 고질적이 문제를 어떻게 해결할 수 있을까?" 라는 고민에서 시작된 우리의 플랫폼 Moo:re를 소개합니다.
