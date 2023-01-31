@@ -40,9 +40,9 @@ __"최상위 클래스의 디자이너만 살아남는 패션 업계의 고질�
 
 ## 👫 팀원 소개
 
-|<img src="https://github.com/~~~.png" width="80">|<img src="https://github.com/~~~.png" width="80">|<img src="https://github.com/ohinhyuk.png" width="80">|<img src="https://github.com/yujin9747.png" width="80">|<img src="https://github.com/woals00.png" width="80">|
+|<img src="./image/profile.jpeg" width="80">|<img src="https://github.com/ChaewonLee21.png" width="80">|<img src="https://github.com/ohinhyuk.png" width="80">|<img src="https://github.com/yujin9747.png" width="80">|<img src="https://github.com/woals00.png" width="80">|
 |:---:|:---:|:---:|:---:|:---:|
-|[](https://github.com/ImInnocent)|[](https://github.com/dearyeon)|[](https://github.com/ohinhyuk)|[](https://github.com/yujin9747)|[](https://github.com/woals00)|
+|[](https://github.com/ImInnocent)|[](https://github.com/ChaewonLee21)|[](https://github.com/ohinhyuk)|[](https://github.com/yujin9747)|[](https://github.com/woals00)|
 |정수연|이채원|오인혁|장유진|정재민
 |기획자|디자이너|프론트엔드|백엔드|백엔드
 
